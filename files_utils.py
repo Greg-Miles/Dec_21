@@ -1,4 +1,4 @@
-import json, csv
+import json, csv, yaml
 
 def read_json(file_path: str, encoding: str = "utf-8")-> str:
     """
@@ -146,3 +146,22 @@ def append_txt(data, file_path, encoding: str = "utf-8")-> None:
         file.write(data + "\n")
 
 
+def read_yaml(file_path)->dict:
+    """
+    Описание: Читает данные из YAML-файла.
+    Входные параметры:
+    file_path: Путь к файлу.
+    Возвращаемое значение:
+    Данные, считанные из файла.
+    """
+    with open(file_path, 'r', encoding='utf-8') as file:
+        data = yaml.safe_load(file)
+    return data
+
+
+def main():
+    pass
+
+
+if __name__ == "__main__":
+    main()
