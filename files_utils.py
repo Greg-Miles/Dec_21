@@ -100,3 +100,49 @@ def append_csv(data, file_path, delimiter=';', encoding: str ='windows-1251')-> 
     with open(file_path, "a", encoding= encoding) as file:
         writer = csv.writer(file, delimiter= delimiter, lineterminator="\n")
         writer.writerow(data)
+
+
+def read_txt(file_path, encoding: str = "utf-8")->list:
+    """
+    Описание:
+    Читает данные из текстового файла.
+    Входные параметры:
+    file_path: Путь к файлу.
+    encoding: Кодировка файла (по умолчанию `"utf-8"`).
+    Возвращаемое значение:
+    Содержимое файла.
+    """
+    with open(file_path, "r", encoding= encoding) as file:
+        lines = file.readlines()
+    return lines
+
+
+def write_txt(data, file_path, encoding: str = "utf-8")-> None:
+    """
+    Описание: Записывает данные в текстовый файл.
+    Входные параметры:
+    data: Данные для записи.
+    file_path: Путь к файлу.
+    encoding: Кодировка файла (по умолчанию `"utf-8"`).
+    Возвращаемое значение: 
+    Нет.
+    """
+    with open(file_path, "w", encoding=encoding) as file:
+        for line in data:
+            file.write(line + "\n")
+
+
+def append_txt(data, file_path, encoding: str = "utf-8")-> None:
+    """
+    Описание: Добавляет данные в конец текстового файла.
+    Входные параметры:
+    data: Данные для добавления.
+    file_path: Путь к файлу.
+    encoding: Кодировка файла (по умолчанию `"utf-8"`).
+    Возвращаемое значение:
+    Нет.
+    """
+    with open(file_path, "a", encoding=encoding) as file:
+        file.write(data + "\n")
+
+
