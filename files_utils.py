@@ -66,7 +66,7 @@ def read_csv(file_path, delimiter=';', encoding: str ='windows-1251')-> list:
     return input_list
 
 
-def write_csv(data: list, file_path, delimiter=';', encoding: str ='windows-1251')-> None:
+def write_csv(data, file_path, delimiter=';', encoding: str ='windows-1251')-> None:
     """
     Описание:
     Записывает данные в CSV-файл.
