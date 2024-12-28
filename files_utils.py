@@ -49,7 +49,7 @@ def append_json(data: list[dict], file_path: str, encoding: str = "utf-8")-> Non
         json.dump(python_data, file, ensure_ascii= False, indent= 4)
 
 
-def read_csv(file_path, delimiter=';', encoding: str ='windows-1251')-> list:
+def read_csv(file_path: str, delimiter=';', encoding: str ='windows-1251')-> list:
     """
     Описание: Читает данные из CSV-файла.
     Входные параметры:
@@ -66,7 +66,7 @@ def read_csv(file_path, delimiter=';', encoding: str ='windows-1251')-> list:
     return input_list
 
 
-def write_csv(data, file_path, delimiter=';', encoding: str ='windows-1251')-> None:
+def write_csv(data: list, file_path: str, delimiter=';', encoding: str ='windows-1251')-> None:
     """
     Описание:
     Записывает данные в CSV-файл.
@@ -79,14 +79,18 @@ def write_csv(data, file_path, delimiter=';', encoding: str ='windows-1251')-> N
     Нет.
     """
     with open(file_path, "w", encoding= encoding) as file:
-        writer = csv.DictWriter(
-        file, fieldnames=data[0].keys(), delimiter= delimiter, lineterminator="\n"
-        )
-        writer.writeheader()
-        writer.writerows(data)
+        if  isinstance(data[0], dict):
+            writer = csv.DictWriter(
+            file, fieldnames=data[0].keys(), delimiter= delimiter, lineterminator="\n"
+            )
+            writer.writeheader()
+            writer.writerows(data)
+        if isinstance(data[0], list):
+            writer = csv.writer(file, delimiter= delimiter, lineterminator="\n")
+            writer.writerows(data)
 
 
-def append_csv(data, file_path, delimiter=';', encoding: str ='windows-1251')-> None:
+def append_csv(data, file_path: str, delimiter=';', encoding: str ='windows-1251')-> None:
     """
     Описание: Добавляет данные в существующий CSV-файл.
     Входные параметры:
@@ -102,7 +106,7 @@ def append_csv(data, file_path, delimiter=';', encoding: str ='windows-1251')-> 
         writer.writerow(data)
 
 
-def read_txt(file_path, encoding: str = "utf-8")->list:
+def read_txt(file_path: str, encoding: str = "utf-8")->list:
     """
     Описание:
     Читает данные из текстового файла.
@@ -117,7 +121,7 @@ def read_txt(file_path, encoding: str = "utf-8")->list:
     return lines
 
 
-def write_txt(data, file_path, encoding: str = "utf-8")-> None:
+def write_txt(data:str, file_path: str, encoding: str = "utf-8")-> None:
     """
     Описание: Записывает данные в текстовый файл.
     Входные параметры:
@@ -128,11 +132,11 @@ def write_txt(data, file_path, encoding: str = "utf-8")-> None:
     Нет.
     """
     with open(file_path, "w", encoding=encoding) as file:
-        for line in data:
-            file.write(line + "\n")
+        data.split("\n")
+        file.write(data)
 
 
-def append_txt(data, file_path, encoding: str = "utf-8")-> None:
+def append_txt(data: str, file_path: str, encoding: str = "utf-8")-> None:
     """
     Описание: Добавляет данные в конец текстового файла.
     Входные параметры:
@@ -146,7 +150,7 @@ def append_txt(data, file_path, encoding: str = "utf-8")-> None:
         file.write(data + "\n")
 
 
-def read_yaml(file_path)->dict:
+def read_yaml(file_path: str, encoding:str = "utf-8")->dict:
     """
     Описание: Читает данные из YAML-файла.
     Входные параметры:
@@ -154,9 +158,21 @@ def read_yaml(file_path)->dict:
     Возвращаемое значение:
     Данные, считанные из файла.
     """
-    with open(file_path, 'r', encoding='utf-8') as file:
+    with open(file_path, 'r', encoding= encoding) as file:
         data = yaml.safe_load(file)
     return data
+
+def write_yaml(data: dict, file_path: str, encoding:str = "utf-8")-> None:
+    """
+    Описание: Записывает данные в YAML-файл.
+    Входные параметры:
+    data: Данные для записи.
+    file_path: Путь к файлу.
+    Возвращаемое значение:
+    Нет.
+    """
+    with open(file_path, 'w', encoding= encoding) as file:
+        yaml.dump(data, file, allow_unicode=True, sort_keys=False, indent=4)
 
 
 def main():

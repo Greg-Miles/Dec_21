@@ -171,3 +171,5 @@ cython_debug/
 .pypirc
 test.csv
 test.json
+test.txt
+test.yaml
